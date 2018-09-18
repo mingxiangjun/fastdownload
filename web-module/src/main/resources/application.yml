@@ -16,3 +16,6 @@ spring:
     consumer:
       version: 1.0.0
       group: download
+common:
+  defaultPageSize: 20
+  batchSizeLimit: 200

@@ -7,6 +7,8 @@ import org.ming.download.servicemodule.ServiceProviderApplication;
 import org.ming.download.servicemodule.model.AccountInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -48,5 +50,17 @@ public class AccountInfoRepositoryTest {
         AccountInfo accountInfo = AccountInfo.builder().userName("nameset").email("test@qq.com").build();
         accountInfoRepository.save(accountInfo);
         log.info(accountInfoRepository.queryAccountInfoById(accountInfo.getId()));
+    }
+
+    @Test
+    public void count(){
+        log.info("record count is "+accountInfoRepository.count());
+    }
+
+    @Test
+    public void queryByPage(){
+        PageRequest page = PageRequest.of(1,20);
+        List<AccountInfo> accountInfos = accountInfoRepository.queryAccountInfos(page);
+        log.info("page accountInfo is :"+accountInfos);
     }
 }

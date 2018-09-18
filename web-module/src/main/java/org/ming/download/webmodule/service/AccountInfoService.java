@@ -15,4 +15,10 @@ public interface AccountInfoService {
      * @return
      */
     public List<AccountInfo> getAccountInfoByIds(List<String> ids);
+
+    /**
+     * 获取账号信息表总记录
+     * @return
+     */
+    public long getAllAccountInfoCount();
 }

@@ -23,4 +23,13 @@ public class AccountInfoInfoProvideServiceImpl implements AccountInfoProvideServ
     public List getAccountInfoByIds(List<String> ids) {
         return accountInfoService.getAccountInfosByIds(ids);
     }
+
+    /**
+     * 查询库表总记录数
+     *
+     * @return
+     */
+    public long getAllAccountInfoCount() {
+        return accountInfoService.getAllAccountInfoCount();
+    }
 }

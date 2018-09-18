@@ -1,8 +1,11 @@
 package org.ming.download.webmodule.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.ming.download.commonmodult.CommonConfig;
+import org.ming.download.commonmodult.util.ResultJsonUtil;
 import org.ming.download.servicemodule.model.AccountInfo;
 import org.ming.download.webmodule.service.AccountInfoService;
+import org.ming.download.webmodule.task.ExportAsyncTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,12 @@ import java.util.List;
 @RequestMapping(value = "/account")
 public class AccountInfoController {
     @Autowired
+    CommonConfig commonConfig;
+
+    @Autowired
+    ExportAsyncTask exportAsyncTask;
+
+    @Autowired
     private AccountInfoService accountInfoService;
 
     @RequestMapping(value = "/list")
@@ -31,5 +40,15 @@ public class AccountInfoController {
         result.put("code","ok");
         result.put("data",accountInfoByIds);
         return result;
+    }
+    @RequestMapping(value = "/export")
+    public JSONObject exportAllAccountInfo(){
+        long allCount = accountInfoService.getAllAccountInfoCount();
+        int batchSizeLimit = Integer.parseInt(commonConfig.get("batchSizeLimit").toString());
+        for (int i = 1;i<=allCount / batchSizeLimit +1;i++){
+            int startIndex = (i-1)*batchSizeLimit;
+
+        }
+        return ResultJsonUtil.success("稍等片刻。。。。").toJson();
     }
 }

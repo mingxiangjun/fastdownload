@@ -1,7 +1,10 @@
 package org.ming.download.servicemodule.repository;
 
 import org.ming.download.servicemodule.model.AccountInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -13,4 +16,5 @@ import java.util.List;
 public interface AccountInfoRepository extends JpaRepository<AccountInfo,String> {
     List<AccountInfo> queryAccountInfosByIdIn(List<String> ids);
     AccountInfo queryAccountInfoById(String id);
+    List<AccountInfo> queryAccountInfos(Pageable page);
 }
