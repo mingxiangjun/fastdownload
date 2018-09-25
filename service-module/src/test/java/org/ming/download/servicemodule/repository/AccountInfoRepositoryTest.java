@@ -58,9 +58,14 @@ public class AccountInfoRepositoryTest {
     }
 
     @Test
+    public void queryByUserNameAndPwd(){
+        AccountInfo accountInfo = accountInfoRepository.queryAccountInfoByCondition("djwvi", "742a29d6cda9eba85fc1d5de67b0c3e8501bb6194d259bc84f3f88a9531f9fe8");
+        log.info("=====>>>>>result is :"+accountInfo);
+    }
+    @Test
     public void queryByPage(){
         PageRequest page = PageRequest.of(1,20);
-        List<AccountInfo> accountInfos = accountInfoRepository.queryAccountInfos(page);
+        Page<AccountInfo> accountInfos = accountInfoRepository.findAll(page);
         log.info("page accountInfo is :"+accountInfos);
     }
 }
