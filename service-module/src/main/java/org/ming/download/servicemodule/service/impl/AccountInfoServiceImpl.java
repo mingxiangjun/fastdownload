@@ -2,10 +2,10 @@ package org.ming.download.servicemodule.service.impl;
 
 import org.ming.download.servicemodule.model.AccountInfo;
 import org.ming.download.servicemodule.repository.AccountInfoRepository;
-import org.ming.download.servicemodule.service.AccountInfoService;
+import org.ming.download.apimodule.service.AccountInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
  * @create 2018-09-15 23:43
  */
 @Service
-public class AccountInfoServiceImpl implements AccountInfoService {
+public class AccountInfoServiceImpl implements AccountInfoService<AccountInfo> {
     @Autowired
     AccountInfoRepository accountInfoRepository;
     /**
@@ -45,7 +45,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
      * @param page
      * @return
      */
-    public Page<AccountInfo> getAccountIdByPage(Page page) {
-        return null;
+    public Page<AccountInfo> getAccountIdByPage(Pageable page) {
+        return accountInfoRepository.findAll(page);
     }
 }

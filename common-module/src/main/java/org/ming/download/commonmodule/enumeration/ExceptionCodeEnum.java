@@ -1,4 +1,4 @@
-package org.ming.download.commonmodult.enumeration;
+package org.ming.download.commonmodule.enumeration;
 
 /**
  * 异常信息枚举
@@ -8,7 +8,7 @@ package org.ming.download.commonmodult.enumeration;
  */
 public enum ExceptionCodeEnum {
     PARAMETER_EMPTY("1001","空参数"),
-    PARAMETER_HUGE("1002","大参数异常");
+    PARAMETER_HUGE("1002","大参数");
     String code;
     String message;
     ExceptionCodeEnum(String code,String message){

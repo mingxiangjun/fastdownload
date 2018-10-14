@@ -1,7 +1,7 @@
-package org.ming.download.servicemodule.service;
+package org.ming.download.apimodule.service;
 
-import org.ming.download.servicemodule.model.AccountInfo;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -10,13 +10,13 @@ import java.util.List;
  * @author MingXiangjun
  * @create 2018-09-15 22:02
  **/
-public interface AccountInfoService {
+public interface AccountInfoService<T> {
     /**
      * 根据id查询账号信息列表
      * @param ids
      * @return
      */
-    List<AccountInfo> getAccountInfosByIds(List<String> ids);
+    List<T> getAccountInfosByIds(List<String> ids);
     /**
      * 查询库表总记录数
      * @return
@@ -28,5 +28,5 @@ public interface AccountInfoService {
      * @param page
      * @return
      */
-    Page<AccountInfo> getAccountIdByPage(Page page);
+    Page<T> getAccountIdByPage(Pageable page);
 }

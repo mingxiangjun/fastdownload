@@ -1,20 +1,20 @@
-package org.ming.download.webmodule;
+package org.ming.download;
 
 import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @author MingXiangjun
  * @create 2018-09-16 11:11
  */
-@SpringBootApplication
+@EnableAsync
 @EnableDubboConfiguration
-@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
-public class WebModultApplication {
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+public class WebModuleApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WebModultApplication.class,args);
+        SpringApplication.run(WebModuleApplication.class,args);
     }
 }

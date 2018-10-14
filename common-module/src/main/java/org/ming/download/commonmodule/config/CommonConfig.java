@@ -1,7 +1,7 @@
-package org.ming.download.commonmodult;
+package org.ming.download.commonmodule.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 
@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @author MingXiangjun
  * @create 2018-09-18 21:45
  */
-@ConditionalOnProperty(prefix = "common",havingValue = "true")
+@Configuration
 @ConfigurationProperties(prefix = "common")
 public class CommonConfig extends HashMap{
 }

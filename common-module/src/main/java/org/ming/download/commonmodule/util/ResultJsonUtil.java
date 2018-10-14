@@ -1,5 +1,6 @@
-package org.ming.download.commonmodult.util;
+package org.ming.download.commonmodule.util;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.HashMap;
@@ -67,6 +68,6 @@ public class ResultJsonUtil extends HashMap {
     }
 
     public JSONObject toJson(){
-        return JSONObject.parseObject(this.toString());
+        return (JSONObject) JSON.toJSON(this);
     }
 }
