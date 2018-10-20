@@ -29,4 +29,6 @@ public interface AccountInfoService<T> {
      * @return
      */
     Page<T> getAccountIdByPage(Pageable page);
+
+    T getAccountInfoById(String id);
 }

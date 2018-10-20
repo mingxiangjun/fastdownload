@@ -11,10 +11,7 @@ import org.ming.download.webmodule.service.AccountInfoManageService;
 import org.ming.download.webmodule.task.ExportAsyncTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,22 +40,25 @@ public class AccountInfoController {
     @Autowired
     private AccountInfoManageService accountInfoManageService;
 
-    @RequestMapping(value = "/list/{ids}")
+    @RequestMapping(value = "/list/{ids}",method = RequestMethod.GET)
     public JSONObject getAccountInfoByIds(@PathVariable(value = "ids") String ids) {
         List<AccountInfoDTO> accountInfoByIds = accountInfoManageService.getAccountInfoByIds(Arrays.asList(ids.split(",")));
-
-        JSONObject result = new JSONObject();
-        result.put("code", "ok");
-        result.put("data", accountInfoByIds);
-        return result;
+        return ResultJsonUtil.success().data(accountInfoByIds).toJson();
     }
-    @RequestMapping(value = "/list/page")
+
+    @RequestMapping(value = "/query/{id}",method = RequestMethod.GET)
+    public JSONObject getAccountInfoById(@PathVariable(value = "id")String id){
+        AccountInfoDTO accountInfo = accountInfoManageService.getAccountInfoById(id);
+        return ResultJsonUtil.success().data(accountInfo).toJson();
+    }
+
+    @RequestMapping(value = "/list/page",method = RequestMethod.GET)
     public JSONObject getAccountInfoByPage(@RequestParam(value = "pageSize")Integer pageSize, @RequestParam(value = "pageNo")Integer pageNo){
         PageRequest pageInfo = PageInfoUtil.initPageInfo(pageNo,pageSize);
         List<AccountInfoDTO> results = accountInfoManageService.getAllAccountInfo(pageInfo);
         return ResultJsonUtil.success("查询成功！").data(results).toJson();
     }
-    @RequestMapping(value = "/export")
+    @RequestMapping(value = "/export",method = RequestMethod.GET)
     public JSONObject exportAllAccountInfo() throws ExecutionException, InterruptedException {
         long allCount = accountInfoManageService.getAllAccountInfoCount();
         log.info("total count is {}", allCount);

@@ -1,9 +1,12 @@
 package org.ming.download.servicemodule.service.impl;
 
+import org.ming.download.servicemodule.config.CustomCacheConfig;
+import org.ming.download.servicemodule.enums.CacheNames;
 import org.ming.download.servicemodule.model.AccountInfo;
 import org.ming.download.servicemodule.repository.AccountInfoRepository;
 import org.ming.download.apimodule.service.AccountInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,8 @@ public class AccountInfoServiceImpl implements AccountInfoService<AccountInfo> {
      * @param ids
      * @return
      */
+    @Cacheable(value = "account",key = "#ids",sync = true)
+    @Override
     public List<AccountInfo> getAccountInfosByIds(List<String> ids) {
         return accountInfoRepository.queryAccountInfosByIdIn(ids);
     }
@@ -35,6 +40,7 @@ public class AccountInfoServiceImpl implements AccountInfoService<AccountInfo> {
      *
      * @return
      */
+    @Override
     public long getAllAccountInfoCount() {
         return accountInfoRepository.count();
     }
@@ -45,7 +51,14 @@ public class AccountInfoServiceImpl implements AccountInfoService<AccountInfo> {
      * @param page
      * @return
      */
+    @Override
     public Page<AccountInfo> getAccountIdByPage(Pageable page) {
         return accountInfoRepository.findAll(page);
+    }
+
+    @Override
+    @Cacheable(value = "ACCOUNT",key = "#id",sync = true)
+    public AccountInfo getAccountInfoById(String id) {
+        return accountInfoRepository.queryAccountInfoById(id);
     }
 }

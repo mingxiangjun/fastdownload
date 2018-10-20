@@ -29,4 +29,11 @@ public interface AccountInfoManageService {
      * @return
      */
     List<AccountInfoDTO> getAllAccountInfo(Pageable page);
+
+    /**
+     * 根据id查询账号信息
+     * @param id
+     * @return
+     */
+    AccountInfoDTO getAccountInfoById(String id);
 }

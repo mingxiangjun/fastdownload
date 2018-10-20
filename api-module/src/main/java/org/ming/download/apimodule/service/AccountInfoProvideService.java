@@ -26,4 +26,6 @@ public interface AccountInfoProvideService<T> {
     long getAllAccountInfoCount();
 
     List<T> getAllAcountInfo(Integer pageNo,Integer pageSize);
+
+    T getAccountInfoById(String id);
 }

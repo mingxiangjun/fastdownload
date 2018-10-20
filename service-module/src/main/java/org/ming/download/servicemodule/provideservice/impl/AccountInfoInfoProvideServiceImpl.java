@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,8 +28,9 @@ import java.util.stream.Collectors;
 @Component
 public class AccountInfoInfoProvideServiceImpl implements AccountInfoProvideService<AccountInfoDTO> {
     @Autowired
-    private AccountInfoService accountInfoService;
+    private AccountInfoService<AccountInfo> accountInfoService;
 
+    @Override
     public List<AccountInfoDTO> getAccountInfoByIds(List<String> ids) {
         List<AccountInfo> accountInfos = accountInfoService.getAccountInfosByIds(ids);
         return accountInfos.stream().map(this::entityConvert).collect(Collectors.toCollection(ArrayList::new));
@@ -39,14 +41,25 @@ public class AccountInfoInfoProvideServiceImpl implements AccountInfoProvideServ
      *
      * @return
      */
+    @Override
     public long getAllAccountInfoCount() {
         return accountInfoService.getAllAccountInfoCount();
     }
 
-    public List<AccountInfoDTO> getAllAcountInfo(Integer pageNo,Integer pageSize) {
+    @Override
+    public List<AccountInfoDTO> getAllAcountInfo(Integer pageNo, Integer pageSize) {
         PageRequest page = PageInfoUtil.initPageInfo(pageNo,pageSize);
         Page<AccountInfo> accountInfo = accountInfoService.getAccountIdByPage(page);
         return accountInfo.getContent().stream().map(this::entityConvert).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public AccountInfoDTO getAccountInfoById(String id) {
+        if (StringUtils.isEmpty(id)){
+            throw new IllegalArgumentException("参数为空！");
+        }
+        AccountInfo accountInfo = accountInfoService.getAccountInfoById(id);
+        return entityConvert(accountInfo);
     }
 
     private AccountInfoDTO entityConvert(AccountInfo info){

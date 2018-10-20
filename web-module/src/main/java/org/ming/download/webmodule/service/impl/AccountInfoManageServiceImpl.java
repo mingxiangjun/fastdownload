@@ -17,7 +17,8 @@ import java.util.List;
 @Service
 public class AccountInfoManageServiceImpl implements AccountInfoManageService {
     @Reference
-    AccountInfoProvideService accountInfoService;
+    AccountInfoProvideService<AccountInfoDTO> accountInfoService;
+    @Override
     public List<AccountInfoDTO> getAccountInfoByIds(List<String> ids) {
         return accountInfoService.getAccountInfoByIds(ids);
     }
@@ -27,6 +28,7 @@ public class AccountInfoManageServiceImpl implements AccountInfoManageService {
      *
      * @return
      */
+    @Override
     public long getAllAccountInfoCount() {
         return accountInfoService.getAllAccountInfoCount();
     }
@@ -37,7 +39,19 @@ public class AccountInfoManageServiceImpl implements AccountInfoManageService {
      * @param page
      * @return
      */
+    @Override
     public List<AccountInfoDTO> getAllAccountInfo(Pageable page) {
         return accountInfoService.getAllAcountInfo(page.getPageNumber(),page.getPageSize());
+    }
+
+    /**
+     * 根据id查询账号信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public AccountInfoDTO getAccountInfoById(String id) {
+        return accountInfoService.getAccountInfoById(id);
     }
 }

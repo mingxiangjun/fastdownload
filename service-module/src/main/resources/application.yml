@@ -25,5 +25,12 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=50000,expireAfterWrite=1800s
+    cache-names: #缓存名称，与实体类没关系
+      - ACCOUNT
+      - USER_INFO
 
 
