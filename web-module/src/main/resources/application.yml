@@ -16,6 +16,22 @@ spring:
     consumer:
       version: 1.0.0
       group: download
+  security:
+    user:
+      name: admin
+      password: 123456
+      roles:
 common:
   defaultPageSize: 20
   batchSizeLimit: 200
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+  server:
+    port: 80
+  health:
+    diskspace:
+      path: D:/spaceInfo.txt
+      enabled: true
